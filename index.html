@@ -6,240 +6,126 @@
   <title>Ricos Originals</title>
   <style>
     body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background-color: #141414;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
       color: #fff;
+      margin: 0;
+      padding: 0;
     }
-    header {
-      background-color: #000;
+    .container {
       padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .logo {
-      font-size: 28px;
-      font-weight: bold;
-      color: red;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      margin: 0 15px;
-      font-size: 20px;
-    }
-    .section {
-      padding: 20px;
-    }
-    h2 {
-      font-size: 28px;
-      margin-bottom: 10px;
     }
     .card {
-      background-color: #222;
-      padding: 15px;
-      margin: 10px;
-      border-radius: 10px;
-      display: inline-block;
-      width: 250px;
-    }
-    .card img {
-      width: 100%;
-      border-radius: 10px;
-    }
-    .admin-btn, .logout-btn, .add-btn {
-      background-color: red;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 5px;
-      font-size: 18px;
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      margin: 10px 0;
+      border-radius: 15px;
       cursor: pointer;
+      background-size: cover;
+      background-position: center;
+      height: 200px;
+      display: flex;
+      align-items: flex-end;
+      color: white;
+      font-size: 24px;
+      transition: transform 0.3s ease;
+    }
+    .card:hover {
+      transform: scale(1.02);
     }
     .hidden {
       display: none;
     }
-    .admin-panel {
-      background-color: #1c1c1c;
-      padding: 20px;
-      margin: 20px;
+    iframe {
+      max-width: 100%;
+    }
+    img {
+      width: 100%;
+      max-width: 300px;
       border-radius: 10px;
     }
-    .form-group {
-      margin-bottom: 15px;
+    .page {
+      padding: 20px;
     }
-    label, input, select {
-      display: block;
-      font-size: 18px;
+    .back-button {
+      margin-top: 10px;
+      padding: 10px 15px;
+      background-color: #0077ff;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    h1, h2, h3 {
+      color: #00bfff;
+    }
+    #introAnimation {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
+      height: 100%;
+      background-color: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: #00bfff;
+      z-index: 1000;
+      animation: fadeOut 2s ease 2s forwards;
     }
-    input, select {
-      padding: 10px;
-      margin-top: 5px;
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="logo">Ricos Originals</div>
-    <nav>
-      <a href="#" onclick="showHome()">Start</a>
-      <a href="#" onclick="showCategory('film')">Filme</a>
-      <a href="#" onclick="showCategory('serie')">Serien</a>
-      <a href="#" onclick="toggleLogin()">Admin</a>
-    </nav>
-  </header>
+  <div id="introAnimation">Ricos Originals +</div>
 
-  <div id="home" class="section">
-    <h2>Willkommen bei Ricos Originals</h2>
-    <p>Wähle eine Kategorie oben aus.</p>
-  </div>
+  <div class="container">
+    <h1>Ricos Originals</h1>
 
-  <div id="category-section" class="section hidden"></div>
-
-  <div id="login-panel" class="admin-panel hidden">
-    <h2>Admin Login</h2>
-    <input id="admin-password" type="password" placeholder="Passwort">
-    <button class="admin-btn" onclick="checkLogin()">Login</button>
-  </div>
-
-  <div id="admin-panel" class="admin-panel hidden">
-    <h2>Admin-Dashboard</h2>
-    <button class="logout-btn" onclick="logout()">Logout</button>
-
-    <div>
-      <h3>Kategorie erstellen</h3>
-      <input id="new-category" placeholder="Kategorie (z. B. Action)">
-      <button class="add-btn" onclick="addCategory()">Hinzufügen</button>
+    <!-- Startseite: Serienkarten -->
+    <div id="home">
+      <div class="card" onclick="openPage('elementalsOverview')" style="background-image: url('https://upload.wikimedia.org/wikipedia/en/7/7c/Elemental_poster.jpg');">
+        <div>Elementals</div>
+      </div>
     </div>
 
-    <div>
-      <h3>Film oder Serie hinzufügen</h3>
-      <select id="content-type">
-        <option value="film">Film</option>
-        <option value="serie">Serie</option>
-      </select>
+    <!-- Elementals Serienübersicht -->
+    <div id="elementalsOverview" class="page hidden">
+      <h2>Elementals – Serienübersicht</h2>
+      <div onclick="openPage('staffel1')" class="card" style="background-image: url('https://upload.wikimedia.org/wikipedia/en/7/7c/Elemental_poster.jpg'); height: 150px;">
+        <div>Staffel 1: Crystalized</div>
+      </div>
+      <button class="back-button" onclick="openPage('home')">Zurück zur Startseite</button>
+    </div>
 
-      <div class="form-group">
-        <label>Vorschaubild:</label>
-        <input type="file" id="thumb">
+    <!-- Staffel 1 Übersicht -->
+    <div id="staffel1" class="page hidden">
+      <h3>Staffel 1: Crystalized</h3>
+      <div onclick="openPage('folge1')">
+        <img src="https://upload.wikimedia.org/wikipedia/en/7/7c/Elemental_poster.jpg" alt="Folge 1">
+        <p>Folge 1: Willkommen in der Wüste</p>
       </div>
-      <div class="form-group">
-        <label>Titel:</label>
-        <input type="text" id="title">
-      </div>
-      <div class="form-group">
-        <label>Kategorie:</label>
-        <select id="category-select"></select>
-      </div>
-      <div class="form-group">
-        <label>Video-Datei:</label>
-        <input type="file" id="video">
-      </div>
-      <button class="add-btn" onclick="saveContent()">Speichern</button>
+      <button class="back-button" onclick="openPage('elementalsOverview')">Zurück zur Serienübersicht</button>
+    </div>
+
+    <!-- Folge 1 Video-Seite -->
+    <div id="folge1" class="page hidden">
+      <h3>Elementals – Staffel 1, Folge 1: Willkommen in der Wüste</h3>
+      <iframe width="100%" height="400" src="https://www.youtube.com/embed/qtMYbmQqniA" frameborder="0" allowfullscreen></iframe>
+      <button class="back-button" onclick="openPage('staffel1')">Zurück zur Staffel</button>
     </div>
   </div>
 
   <script>
-    let categories = ['Abenteuer', 'Fantasy'];
-    let data = JSON.parse(localStorage.getItem('ricos_content')) || [];
-    let isLoggedIn = false;
-
-    function toggleLogin() {
-      document.getElementById('login-panel').classList.toggle('hidden');
-    }
-
-    function checkLogin() {
-      const pw = document.getElementById('admin-password').value;
-      if (pw === 'admin123') {
-        isLoggedIn = true;
-        document.getElementById('login-panel').classList.add('hidden');
-        document.getElementById('admin-panel').classList.remove('hidden');
-        fillCategorySelect();
-      } else {
-        alert('Falsches Passwort!');
-      }
-    }
-
-    function logout() {
-      isLoggedIn = false;
-      document.getElementById('admin-panel').classList.add('hidden');
-    }
-
-    function addCategory() {
-      const cat = document.getElementById('new-category').value;
-      if (cat && !categories.includes(cat)) {
-        categories.push(cat);
-        fillCategorySelect();
-        alert('Kategorie hinzugefügt!');
-      }
-    }
-
-    function fillCategorySelect() {
-      const select = document.getElementById('category-select');
-      select.innerHTML = '';
-      categories.forEach(c => {
-        const opt = document.createElement('option');
-        opt.value = c;
-        opt.textContent = c;
-        select.appendChild(opt);
-      });
-    }
-
-    function saveContent() {
-      const type = document.getElementById('content-type').value;
-      const title = document.getElementById('title').value;
-      const category = document.getElementById('category-select').value;
-      const thumb = document.getElementById('thumb').files[0];
-      const video = document.getElementById('video').files[0];
-      if (!title || !thumb || !video) return alert('Bitte alle Felder ausfüllen!');
-
-      const readerThumb = new FileReader();
-      const readerVideo = new FileReader();
-      readerThumb.onload = () => {
-        readerVideo.onload = () => {
-          data.push({
-            type, title, category,
-            thumb: readerThumb.result,
-            video: readerVideo.result
-          });
-          localStorage.setItem('ricos_content', JSON.stringify(data));
-          alert('Gespeichert!');
-          showCategory(type);
-        };
-        readerVideo.readAsDataURL(video);
-      };
-      readerThumb.readAsDataURL(thumb);
-    }
-
-    function showCategory(type) {
-      document.getElementById('home').classList.add('hidden');
-      const section = document.getElementById('category-section');
-      section.innerHTML = `<h2>${type === 'film' ? 'Filme' : 'Serien'}</h2>`;
-      section.classList.remove('hidden');
-
-      const items = data.filter(item => item.type === type);
-      items.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'card';
-        div.innerHTML = `
-          <img src="${item.thumb}" alt="${item.title}">
-          <h3>${item.title}</h3>
-          <button onclick="playVideo('${item.video}')">Abspielen</button>
-        `;
-        section.appendChild(div);
-      });
-    }
-
-    function showHome() {
-      document.getElementById('category-section').classList.add('hidden');
-      document.getElementById('home').classList.remove('hidden');
-    }
-
-    function playVideo(videoSrc) {
-      const win = window.open();
-      win.document.write(`<video src="${videoSrc}" controls autoplay style="width:100%;height:100%"></video>`);
+    function openPage(id) {
+      document.querySelectorAll('.page, #home').forEach(p => p.classList.add('hidden'));
+      document.getElementById(id).classList.remove('hidden');
     }
   </script>
 </body>
