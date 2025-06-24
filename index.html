@@ -5,81 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ricos Originals</title>
   <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #fff;
-      margin: 0;
-      padding: 0;
+    body{
+      font-family:'Segoe UI',Tahoma,Verdana,sans-serif;
+      background:linear-gradient(to right,#0f2027,#203a43,#2c5364);
+      color:#fff;margin:0;padding:0;
     }
-    .container {
-      padding: 20px;
+    .container{padding:20px;}
+    .card{
+      background-color:rgba(255,255,255,0.05);
+      padding:20px;margin:10px 0;border-radius:15px;
+      cursor:pointer;background-size:cover;background-position:center;
+      height:200px;display:flex;align-items:flex-end;
+      color:white;font-size:24px;transition:transform .3s ease;
     }
-    .card {
-      background-color: rgba(255, 255, 255, 0.05);
-      padding: 20px;
-      margin: 10px 0;
-      border-radius: 15px;
-      cursor: pointer;
-      background-size: cover;
-      background-position: center;
-      height: 200px;
-      display: flex;
-      align-items: flex-end;
-      color: white;
-      font-size: 24px;
-      transition: transform 0.3s ease;
+    .card:hover{transform:scale(1.02);}
+    .hidden{display:none;}
+    iframe{max-width:100%;}
+    img{width:100%;max-width:300px;border-radius:10px;}
+    .page{padding:20px;}
+    .back-button{
+      margin-top:10px;padding:10px 15px;background:#0077ff;
+      border:none;color:white;cursor:pointer;border-radius:5px;
     }
-    .card:hover {
-      transform: scale(1.02);
+    h1,h2,h3{color:#00bfff;}
+    #introAnimation{
+      position:fixed;top:0;left:0;width:100%;height:100%;
+      background:#000;display:flex;align-items:center;justify-content:center;
+      font-size:48px;color:#00bfff;z-index:1000;
+      animation:fadeOut 2s ease 2s forwards;
     }
-    .hidden {
-      display: none;
-    }
-    iframe {
-      max-width: 100%;
-    }
-    img {
-      width: 100%;
-      max-width: 300px;
-      border-radius: 10px;
-    }
-    .page {
-      padding: 20px;
-    }
-    .back-button {
-      margin-top: 10px;
-      padding: 10px 15px;
-      background-color: #0077ff;
-      border: none;
-      color: white;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-    h1, h2, h3 {
-      color: #00bfff;
-    }
-    #introAnimation {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 48px;
-      color: #00bfff;
-      z-index: 1000;
-      animation: fadeOut 2s ease 2s forwards;
-    }
-    @keyframes fadeOut {
-      to {
-        opacity: 0;
-        visibility: hidden;
-      }
-    }
+    @keyframes fadeOut{to{opacity:0;visibility:hidden;}}
   </style>
 </head>
 <body>
@@ -90,20 +45,24 @@
 
     <!-- Startseite: Serienkarten -->
     <div id="home">
-      <div class="card" onclick="openPage('elementalsOverview')" style="background-image: url('https://i.imgur.com/Ufso9Go.jpeg');">
+      <div class="card" onclick="openPage('elementalsOverview')" style="background-image:url('https://i.imgur.com/Ufso9Go.jpeg');">
         <div>Elementals</div>
       </div>
 
-      <!-- Neuer Film: The Last Summer -->
-      <div class="card" onclick="openPage('lastSummer')" style="background-image: url('https://i.imgur.com/2TeuZLk.jpeg');">
+      <div class="card" onclick="openPage('lastSummer')" style="background-image:url('https://i.imgur.com/2TeuZLk.jpeg');">
         <div>The Last Summer</div>
+      </div>
+
+      <!-- NEU: Rivals -->
+      <div class="card" onclick="openPage('rivals')" style="background-image:url('https://via.placeholder.com/600x400.png?text=Rivals+Poster');">
+        <div>Rivals</div>
       </div>
     </div>
 
     <!-- Elementals Serienübersicht -->
     <div id="elementalsOverview" class="page hidden">
       <h2>Elementals – Serienübersicht</h2>
-      <div onclick="openPage('staffel1')" class="card" style="background-image: url('https://i.imgur.com/Ufso9Go.jpeg'); height: 150px;">
+      <div onclick="openPage('staffel1')" class="card" style="background-image:url('https://i.imgur.com/Ufso9Go.jpeg');height:150px;">
         <div>Staffel 1: Crystalized</div>
       </div>
       <button class="back-button" onclick="openPage('home')">Zurück zur Startseite</button>
@@ -126,17 +85,27 @@
       <button class="back-button" onclick="openPage('staffel1')">Zurück zur Staffel</button>
     </div>
 
-    <!-- The Last Summer Coming Soon-Seite -->
+    <!-- The Last Summer Coming-Soon-Seite -->
     <div id="lastSummer" class="page hidden">
       <h2>🎬 The Last Summer – Bald verfügbar</h2>
       <p>Unser neuer Film erscheint in Kürze exklusiv auf Ricos Originals+</p>
       <button class="back-button" onclick="openPage('home')">Zurück zur Startseite</button>
     </div>
+
+    <!-- NEU: Rivals Trailer-Seite -->
+    <div id="rivals" class="page hidden">
+      <h2>Rivals – Trailer</h2>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/LuxLzEiXDkk?si=CpnB9UISPtS2YF2P" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <p>Die Neuauflage von „Karate Rico“ kehrt bald zurück – nur auf Ricos Originals+.</p>
+      <button class="back-button" onclick="openPage('home')">Zurück zur Startseite</button>
+    </div>
+
   </div>
 
   <script>
-    function openPage(id) {
-      document.querySelectorAll('.page, #home').forEach(p => p.classList.add('hidden'));
+    function openPage(id){
+      document.querySelectorAll('.page, #home')
+              .forEach(p=>p.classList.add('hidden'));
       document.getElementById(id).classList.remove('hidden');
     }
   </script>
