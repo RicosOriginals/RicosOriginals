@@ -5,36 +5,64 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ricos Originals</title>
   <style>
-    body{
-      font-family:'Segoe UI',Tahoma,Verdana,sans-serif;
-      background:linear-gradient(to right,#0f2027,#203a43,#2c5364);
-      color:#fff;margin:0;padding:0;
+    body {
+      font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      margin: 0;
+      padding: 0;
     }
-    .container{padding:20px;}
-    .card{
-      background-color:rgba(255,255,255,0.05);
-      padding:20px;margin:10px 0;border-radius:15px;
-      cursor:pointer;background-size:cover;background-position:center;
-      height:200px;display:flex;align-items:flex-end;
-      color:white;font-size:24px;transition:transform .3s ease;
+    .container { padding: 20px; }
+    .card {
+      background-color: rgba(255,255,255,0.05);
+      padding: 20px;
+      margin: 10px 0;
+      border-radius: 15px;
+      cursor: pointer;
+      background-size: cover;
+      background-position: center;
+      height: 200px;
+      display: flex;
+      align-items: flex-end;
+      color: white;
+      font-size: 24px;
+      transition: transform .3s ease;
     }
-    .card:hover{transform:scale(1.02);}
-    .hidden{display:none;}
-    iframe{max-width:100%;}
-    img{width:100%;max-width:300px;border-radius:10px;}
-    .page{padding:20px;}
-    .back-button{
-      margin-top:10px;padding:10px 15px;background:#0077ff;
-      border:none;color:white;cursor:pointer;border-radius:5px;
+    .card:hover { transform: scale(1.02); }
+    .hidden { display: none; }
+    iframe { max-width: 100%; }
+    img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 10px;
     }
-    h1,h2,h3{color:#00bfff;}
-    #introAnimation{
-      position:fixed;top:0;left:0;width:100%;height:100%;
-      background:#000;display:flex;align-items:center;justify-content:center;
-      font-size:48px;color:#00bfff;z-index:1000;
-      animation:fadeOut 2s ease 2s forwards;
+    .page { padding: 20px; }
+    .back-button {
+      margin-top: 10px;
+      padding: 10px 15px;
+      background: #0077ff;
+      border: none;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
     }
-    @keyframes fadeOut{to{opacity:0;visibility:hidden;}}
+    h1, h2, h3 { color: #00bfff; }
+    #introAnimation {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: #00bfff;
+      z-index: 1000;
+      animation: fadeOut 2s ease 2s forwards;
+    }
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
   </style>
 </head>
 <body>
@@ -92,38 +120,51 @@
       <button class="back-button" onclick="openPage('home')">Zurück zur Startseite</button>
     </div>
 
-    <!-- NEU: Rivals Serien Überishct -->
+    <!-- Rivals Serienübersicht -->
     <div id="rivals" class="page hidden">
       <h2>Rivals Serienübersicht</h2>
-      <p>Rivals Die Neuauflage von Karate Rico
-     <div onclick="openPage('staffel1-Rivals')" class="card" style="background-image:url('https://i.imgur.com/PVOfx5C.jpeg');height:150px;">
+      <p>Rivals Die Neuauflage von Karate Rico</p>
+      <div onclick="openPage('staffel1-Rivals')" class="card" style="background-image:url('https://i.imgur.com/PVOfx5C.jpeg');height:150px;">
         <div>Staffel 1: Rise of Thime</div>
-        </div> 
+      </div> 
       <button class="back-button" onclick="openPage('home')">Zurück zur Startseite</button>
     </div>
 
- <!--Rivals Staffel 1 Übersicht -->
+    <!-- Rivals Staffel 1 Übersicht -->
     <div id="staffel1-Rivals" class="page hidden"> 
-      <h3>Staffel 1: Crystalized</h3>
-      <div onclick="openPage('folge1-Rivals')"> 
-        <img src="https://i.imgur.com/jiQedJH.jpeg" alt="Folge 1">
-        <p>Folge 1: Willkommen in der Wüste</p> 
+      <h3>Staffel 1: Rise of Thime</h3>
+      <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <div onclick="openPage('folge1-Rivals')" style="cursor: pointer;">
+          <img src="https://i.imgur.com/jiQedJH.jpeg" alt="Folge 1">
+          <p>Folge 1: The First Strike</p> 
+        </div>
+        <div onclick="openPage('folge2-Rivals')" style="cursor: pointer;">
+          <img src="https://i.imgur.com/li38CyE.jpeg" alt="Folge 2">
+          <p>Folge 2: The Clock</p> 
+        </div>
       </div>
       <button class="back-button" onclick="openPage('rivals')">Zurück zur Serienübersicht</button>
     </div>
-  
-  <!-- Folge 1 Video-Seite -->
+
+    <!-- Folge 1 Video-Seite Rivals -->
     <div id="folge1-Rivals" class="page hidden">
       <h3>Rivals – Staffel 1, Folge 1: The First Strike </h3>
-      <iframe width="100%" height="400" src="https://www.youtube.com/embed/zY_eArC8_Q8?si=Qc4ZxVU7ZsrFHjWf" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-   <button class="back-button" onclick="openPage('staffel1-Rivals')">Zurück zur Staffel</button>
+      <iframe width="100%" height="400" src="https://www.youtube.com/embed/zY_eArC8_Q8?si=Qc4ZxVU7ZsrFHjWf" frameborder="0" allowfullscreen></iframe>
+      <button class="back-button" onclick="openPage('staffel1-Rivals')">Zurück zur Staffel</button>
+    </div>
+
+    <!-- Folge 2 Video-Seite Rivals -->
+    <div id="folge2-Rivals" class="page hidden">
+      <h3>Rivals – Staffel 1, Folge 2: The Clock</h3>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/0mmYdd8N2tw?si=0qEmnlxzeKHAs7_Z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <button class="back-button" onclick="openPage('staffel1-Rivals')">Zurück zur Staffel</button>
     </div>
   </div>
 
   <script>
-    function openPage(id){
+    function openPage(id) {
       document.querySelectorAll('.page, #home')
-              .forEach(p=>p.classList.add('hidden'));
+              .forEach(p => p.classList.add('hidden'));
       document.getElementById(id).classList.remove('hidden');
     }
   </script>
