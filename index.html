@@ -58,7 +58,7 @@
       font-size: 48px;
       color: #00bfff;
       z-index: 1000;
-      animation: fadeOut 2s ease 2s forwards;
+      animation: fadeOut 1s ease 1s forwards; 
     }
     @keyframes fadeOut {
       to { opacity: 0; visibility: hidden; }
@@ -84,6 +84,12 @@
       <!-- NEU: Rivals -->
       <div class="card" onclick="openPage('rivals')" style="background-image:url('https://i.imgur.com/s6UsZOZ.jpeg');"> 
         <div>Rivals</div>
+      </div>
+    
+    
+    <!-- NEU: Karate Rico -->
+      <div class="card" onclick="openPage('karaterico')" style="background-image:url('https://i.imgur.com/8JmGGYt.jpeg');"> 
+        <div>Karate Rico</div>
       </div>
     </div>
 
@@ -159,7 +165,47 @@
       <iframe width="560" height="315" src="https://www.youtube.com/embed/0mmYdd8N2tw?si=0qEmnlxzeKHAs7_Z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       <button class="back-button" onclick="openPage('staffel1-Rivals')">Zurück zur Staffel</button>
     </div>
-  </div>
+ 
+ 
+    <!-- Karate Rico Serienübersicht -->
+    <div id="karaterico" class="page hidden">
+      <h2>Karate Rico Serienübersicht</h2>
+      <p>Unsere erste Serie Jemals</p>
+      <div onclick="openPage('staffel1-karaterico')" class="card" style="background-image:url('https://i.imgur.com/8JmGGYt.jpeg">
+        <div>Staffel 1: Der weg </div>
+      </div> 
+      <button class="back-button" onclick="openPage('home')">Zurück zur Startseite</button>
+    </div>
+  
+ <!-- Karate Rico Staffel 1 Übersicht -->
+    <div id="staffel1-karaterico" class="page hidden"> 
+      <h3>Staffel 1: Der Weg </h3>
+      <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <div onclick="openPage('folge1-karaterico')" style="cursor: pointer;">
+          <img src="https://i.imgur.com/J9BfeAy.jpeg" alt="Folge 1">
+          <p>Folge 1: Der Weg beginnt</p> 
+        </div>
+        <div onclick="openPage('folge2-karaterico')" style="cursor: pointer;">
+          <img src="https://i.imgur.com/qb8TXYM.jpeg" alt="Folge 2">
+          <p>Folge 2: Der Verrat</p> 
+        </div>
+      </div>
+      <button class="back-button" onclick="openPage('karaterico')">Zurück zur Serienübersicht</button>
+    </div>
+
+ <!-- Folge 1 Video-Seite Rivals -->
+    <div id="folge1-karaterico" class="page hidden">
+      <h3>Rivals – Staffel 1, Folge 1: Der Weg beginnt </h3>
+      <iframe width="100%" height="400" src="https://www.youtube.com/embed/zY_eArC8_Q8?si=Qc4ZxVU7ZsrFHjWf" frameborder="0" allowfullscreen></iframe>
+      <button class="back-button" onclick="openPage('staffel1-Rivals')">Zurück zur Staffel</button>
+    </div>
+
+    <!-- Folge 2 Video-Seite Rivals -->
+    <div id="folge2-karaterico" class="page hidden">
+      <h3>Rivals – Staffel 1, Folge 2: Der Verrat</h3>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/0mmYdd8N2tw?si=0qEmnlxzeKHAs7_Z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <button class="back-button" onclick="openPage('staffel1-Rivals')">Zurück zur Staffel</button>
+    </div>
 
   <script>
     function openPage(id) {
