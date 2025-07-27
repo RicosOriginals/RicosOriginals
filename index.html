@@ -28,6 +28,12 @@
       font-size: 24px;
       transition: transform .3s ease;
     }
+  .desktop-mode .card {
+  aspect-ratio: 16/9;
+  max-width: 400px;   /* oder 300px je nach Geschmack */
+  margin: 10px auto;
+}
+
     .card:hover { transform: scale(1.02); }
     .hidden { display: none; }
     iframe { max-width: 100%; }
@@ -58,21 +64,60 @@
       font-size: 50px;
       color: #00bfff;
       z-index: 1000;
-      animation: fadeOut 1s ease 1s forwards; 
+      animation: fadeOut 1s ease 2s forwards; 
     }
     @keyframes fadeOut {
       to { opacity: 0; visibility: hidden; }
     }
+    .mode-selector {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #E8F7FF;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 3000;
+    }
+    .mode-selector h2 {
+      color: #00A1FF;
+      margin-bottom: 20px;
+    }
+    .mode-selector button {
+      margin: 10px;
+      padding: 15px 30px;
+      font-size: 18px;
+      background: #00A1FF;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    .mode-selector button:hover {
+      background: #007acc;
+    }
   </style>
 </head>
 <body>
-    <!-- Dramatischer Update-Bildschirm -->
+
+<!-- Gerätewahl -->
+<div id="deviceSelect" class="mode-selector">
+  <h2>Wähle dein Gerät</h2>
+  <button onclick="setDeviceMode('mobile')">Handy</button>
+  <button onclick="setDeviceMode('desktop')">PC / TV</button>
+</div>
+
+<!-- Intro Animation -->
+<div id="introAnimation" style="display:none;">Ricos Originals +</div>
+
+<!-- Update Screen -->
 <div id="updateScreen" style="display:none;">
   <div class="update-inner">
-    <h1>🎬 Ricos Originals</h1>
-    <h2>Version 2.0 ist verfügbar</h2>
+    <h1>🎮 Ricos Originals</h1>
+    <h2>Version 3.0 ist verfügbar</h2>
     <button id="startUpdate">Aktualisieren</button>
-    <p id="loadingText" style="display:none;">Version 2.0 wird installiert<span id="dots">.</span></p>
+    <p id="loadingText" style="display:none;">Version 3.0 wird installiert<span id="dots">.</span></p>
   </div>
 </div>
 
@@ -81,7 +126,7 @@
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: black;
+    background: white;
     color: white;
     z-index: 9999;
     display: flex;
@@ -115,7 +160,53 @@
   }
 </style>
 
-  <div id="introAnimation">Ricos Originals +</div>
+<script>
+    
+    function setDeviceMode(mode) {
+    document.getElementById('deviceSelect').style.display = 'none';
+    document.getElementById('introAnimation').style.display = 'flex';
+    setTimeout(() => {
+      document.getElementById('introAnimation').style.display = 'none';
+      showUpdateOrHome();
+    }, 2500);
+    if (mode === 'desktop') {
+      document.body.classList.add('desktop-mode');
+    }
+  }
+
+  function showUpdateOrHome() {
+    if (!localStorage.getItem('updateSeen')) {
+      document.getElementById('updateScreen').style.display = 'flex';
+      document.getElementById('startUpdate').addEventListener('click', () => {
+        document.getElementById('startUpdate').style.display = 'none';
+        document.getElementById('loadingText').style.display = 'block';
+        let dots = document.getElementById('dots');
+        let dotCount = 1;
+        let dotInterval = setInterval(() => {
+          dotCount = (dotCount % 3) + 1;
+          dots.textContent = '.'.repeat(dotCount);
+        }, 500);
+        setTimeout(() => {
+          clearInterval(dotInterval);
+          document.getElementById('updateScreen').style.display = 'none';
+          localStorage.setItem('updateSeen', 'true');
+          openPage('home');
+        }, 8000);
+      });
+    } else {
+      openPage('home');
+    }
+  }
+
+  function openPage(id) {
+    document.querySelectorAll('.page, #home')
+            .forEach(p => p.classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
+  }
+</script>
+
+<!-- AB HIER FOLGT DEIN GANZER INHALT (z.B. <div class="container">...) UNVERÄNDERT -->
+<div id="introAnimation">Ricos Originals +</div>
 
   <div class="container">
     <h1>Ricos Originals</h1>
@@ -268,6 +359,9 @@
       <div onclick="openPage('ASH:SOTF')" class="card" style="background-image:url('https://i.imgur.com/4ZAaVdA.png">
         <div>ASH Silence Of The Flame</div>
       </div> 
+     <div onclick="openPage('TNC:FS')" class="card" style="background-image:url('https://i.imgur.com/dQxnMlz.png')">
+  <div>The Nova Core First Steps</div>
+</div>
       <button class="back-button" onclick="openPage('home')">Zurück zur Startseite</button>
     </div>
 
@@ -295,49 +389,72 @@
     </div>
 
     <!-- ASH Silence of the flame Trailer -->
-    <div id="folge2-Rivals" class="page hidden">
-      <h3>Rivals – Staffel 1, Folge 2: The Clock</h3>
+    <div id="ASH:STOF:TRAILER" class="page hidden">
+      <h3>Trailer</h3>
       <iframe width="560" height="315" src="https://www.youtube.com/embed/0mmYdd8N2tw?si=0qEmnlxzeKHAs7_Z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       <button class="back-button" onclick="openPage('ASH:SOTF')">Zurück zum Film</button>
     </div>
-  <script>
-    function openPage(id) {
-      document.querySelectorAll('.page, #home')
-              .forEach(p => p.classList.add('hidden'));
-      document.getElementById(id).classList.remove('hidden');
+    
     }
-  </script>
+  <!-- The Nova core first Steps – Detailseite -->
+<div id="TNC:FS" class="page hidden"> 
+      <h3>The Nova Core First Steps</h3>
+      <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+        <div onclick="openPage('TNC:FS:TEASER')" style="cursor: pointer;">
+          <img src="https://i.imgur.com/4ZAaVdA.png" alt="Folge 1">
+          <p>Teaser</p> 
+        </div>
+        <div onclick="openPage('TNC:FS:TRAILER')" style="cursor: pointer;">
+          <img src="https://i.imgur.com/4ZAaVdA.png" alt="Folge 2">
+          <p>Trailer</p> 
+        </div>
+      </div>
+      <button class="back-button" onclick="openPage('RCU')">Zurück zur RCU</button>
+    </div>
+    
+    <!-- The Nova Core first Steps Teaser -->
+    <div id="TNC:FS:TEASER" class="page hidden">
+      <h3>Rivals – Staffel 1, Folge 1: The First Strike </h3>
+      <iframe width="100%" height="400" src="https://www.youtube.com/embed/O70jm5leO3E?si=t3LmgR6Ue3Lp2otr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <button class="back-button" onclick="openPage('ASH:SOTF')">Zurück zum Film</button>
+    </div>
+
+    <!-- The Nova core first steps Trailer -->
+    <div id="TNC:FS:TRAILER" class="page hidden">
+      <h3>Trailer</h3>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/0mmYdd8N2tw?si=0qEmnlxzeKHAs7_Z" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <button class="back-button" onclick="openPage('ASH:SOTF')">Zurück zum Film</button>
+    </div>
+
+
 <script>
-  // Ladeanimation mit Punkten
-  let dotInterval;
+const updateVersion = "3.0";
 
-  // Prüfen, ob Update schon gesehen wurde
-if (!localStorage.getItem('updateSeen')) {
+function showUpdateOrHome() {
+  if (localStorage.getItem('updateSeen') !== updateVersion) {
     document.getElementById('updateScreen').style.display = 'flex';
-
     document.getElementById('startUpdate').addEventListener('click', () => {
-      // Button verstecken, Text zeigen
       document.getElementById('startUpdate').style.display = 'none';
       document.getElementById('loadingText').style.display = 'block';
 
       let dots = document.getElementById('dots');
       let dotCount = 1;
-      dotInterval = setInterval(() => {
+      let dotInterval = setInterval(() => {
         dotCount = (dotCount % 3) + 1;
         dots.textContent = '.'.repeat(dotCount);
       }, 500);
 
-      // Nach 8 Sekunden weiter zur Startseite
       setTimeout(() => {
         clearInterval(dotInterval);
         document.getElementById('updateScreen').style.display = 'none';
-        localStorage.setItem('updateSeen', 'true');
+        localStorage.setItem('updateSeen', updateVersion);
         openPage('home');
       }, 8000);
     });
   } else {
     openPage('home');
   }
+}
 </script>
 </body>
 </html>
