@@ -97,27 +97,58 @@
     .mode-selector button:hover {
       background: #007acc;
     }
+  .search-container {
+  padding: 20px;
+  text-align: center;
+}
+
+#searchInput {
+  padding: 10px;
+  width: 80%;
+  max-width: 400px;
+  border: 2px solid #00A1FF;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+ #startAnimation {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: #051a2d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeOutMoveUp 2s ease 2s forwards;
+}
+#startAnimation img {
+  width: 300px;
+  animation: zoomIn 1.5s ease;
+}
+@keyframes zoomIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+@keyframes fadeOutMoveUp {
+  to {
+    opacity: 0;
+    transform: translateY(-100px);
+    visibility: hidden;
+  }
+}
+
   </style>
 </head>
 <body>
-
-<!-- Gerätewahl -->
-<div id="deviceSelect" class="mode-selector">
-  <h2>Wähle dein Gerät</h2>
-  <button onclick="setDeviceMode('mobile')">Handy</button>
-  <button onclick="setDeviceMode('desktop')">PC / TV</button>
-</div>
-
-<!-- Intro Animation -->
-<div id="introAnimation" style="display:none;">Ricos Originals +</div>
 
 <!-- Update Screen -->
 <div id="updateScreen" style="display:none;">
   <div class="update-inner">
     <h1>🎮 Ricos Originals</h1>
-    <h2>Version 3.0 ist verfügbar</h2>
+    <h2>Version 4.0 ist verfügbar</h2>
     <button id="startUpdate">Aktualisieren</button>
-    <p id="loadingText" style="display:none;">Version 3.0 wird installiert<span id="dots">.</span></p>
+    <p id="loadingText" style="display:none;">Version 4.0 wird installiert<span id="dots">.</span></p>
   </div>
 </div>
 
@@ -159,6 +190,29 @@
     background: #007acc;
   }
 </style>
+
+<div id="accountOverlay" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;color:white;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;">
+  <h2>Willkommen bei Ricos Originals+</h2>
+  <p>Wie heißt du?</p>
+  <input type="text" id="usernameInput" placeholder="Dein Name" style="padding:10px;border:none;border-radius:5px;margin-bottom:10px;">
+  <button onclick="saveUsername()" style="padding:10px 20px;border:none;border-radius:5px;background:#001bff;color:white;cursor:pointer;">Weiter</button>
+</div>
+
+<audio id="clickSound" src="https://i.imgur.com/jmaYNfJ.mp4" preload="auto"></audio>
+
+<div id="startAnimation">
+  <img src="https://i.imgur.com/gByvlR8.jpeg" alt="Ricos Originals+" />
+</div>
+
+<!-- Gerätewahl -->
+<div id="deviceSelect" class="mode-selector">
+  <h2>Wähle dein Gerät</h2>
+  <button onclick="setDeviceMode('mobile')">Handy</button>
+  <button onclick="setDeviceMode('desktop')">PC / TV</button>
+</div>
+
+<!-- Intro Animation -->
+<div id="introAnimation" style="display:none;">Ricos Originals +</div>
 
 <script>
     
@@ -203,6 +257,29 @@
             .forEach(p => p.classList.add('hidden'));
     document.getElementById(id).classList.remove('hidden');
   }
+
+function searchContent() {
+  const searchTerm = document.getElementById("searchInput").value.toLowerCase();
+  const tiles = document.querySelectorAll(".card");
+
+  tiles.forEach(tile => {
+    const text = tile.innerText.toLowerCase();
+    const match = text.includes(searchTerm);
+
+    // Wenn es passt, zeige Seite mit der Kachel
+    if (match) {
+      let parent = tile.closest(".page");
+      if (parent && parent.classList.contains("hidden")) {
+        document.querySelectorAll('.page').forEach(p => p.classList.add("hidden"));
+        parent.classList.remove("hidden");
+      }
+    }
+
+    // Sichtbarkeit der Kachel steuern
+    tile.style.display = match || searchTerm === "" ? "flex" : "none";
+  });
+}
+
 </script>
 
 <!-- AB HIER FOLGT DEIN GANZER INHALT (z.B. <div class="container">...) UNVERÄNDERT -->
@@ -210,6 +287,12 @@
 
   <div class="container">
     <h1>Ricos Originals</h1>
+
+<h2 id="welcomeMessage" style="margin-top:10px;"></h2>
+
+   <div class="search-container">
+  <input type="text" id="searchInput" oninput="searchContent()" placeholder="🔍 Suche nach Serien oder Filmen..." />
+</div>
 
     <!-- Startseite: Serienkarten -->
    <div id="home" class="hidden">
@@ -428,33 +511,65 @@
 
 
 <script>
-const updateVersion = "3.0";
-
-function showUpdateOrHome() {
-  if (localStorage.getItem('updateSeen') !== updateVersion) {
+  // Prüfen, ob Update schon gesehen wurde
+  if (!localStorage.getItem('updateSeen')) {
     document.getElementById('updateScreen').style.display = 'flex';
+
     document.getElementById('startUpdate').addEventListener('click', () => {
+      // Button verstecken, Text zeigen
       document.getElementById('startUpdate').style.display = 'none';
       document.getElementById('loadingText').style.display = 'block';
 
       let dots = document.getElementById('dots');
       let dotCount = 1;
-      let dotInterval = setInterval(() => {
+      const dotInterval = setInterval(() => {
         dotCount = (dotCount % 3) + 1;
         dots.textContent = '.'.repeat(dotCount);
       }, 500);
 
+      // Nach 5 Sekunden weiter
       setTimeout(() => {
         clearInterval(dotInterval);
         document.getElementById('updateScreen').style.display = 'none';
-        localStorage.setItem('updateSeen', updateVersion);
+        localStorage.setItem('updateSeen', 'true'); // Merken
         openPage('home');
-      }, 8000);
+      }, 5000);
     });
   } else {
     openPage('home');
   }
+
+setTimeout(() => {
+  document.getElementById("startAnimation").style.display = "none";
+}, 4000); // Nach 4 Sekunden ausblenden
+
+document.querySelectorAll("button, .card, .navbar a").forEach(el => {
+  el.addEventListener("click", () => {
+    document.getElementById("clickSound").play();
+  });
+});
+
+function saveUsername() {
+  const name = document.getElementById("usernameInput").value.trim();
+  if (name) {
+    localStorage.setItem("ricosUserName", name);
+    showWelcome(name);
+    document.getElementById("accountOverlay").style.display = "none";
+  }
 }
+
+function showWelcome(name) {
+  document.getElementById("welcomeMessage").textContent = "Willkommen zurück, " + name + "!";
+}
+
+// Beim Laden prüfen, ob schon gespeichert
+window.addEventListener("load", () => {
+  const savedName = localStorage.getItem("ricosUserName");
+  if (savedName) {
+    document.getElementById("accountOverlay").style.display = "none";
+    showWelcome(savedName);
+  }
+});
 </script>
 </body>
 </html>
