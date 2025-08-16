@@ -38,19 +38,19 @@
       color: gray;
     }
 
-    /* Sections */
+    /* Sections + Animation */
     section {
       margin: 100px 0;
       opacity: 0;
       transform: translateY(50px);
       transition: all 1s ease;
     }
-
     section.visible {
       opacity: 1;
       transform: translateY(0);
     }
 
+    /* Buttons */
     .btn {
       background-color: #E50914;
       color: white;
@@ -59,31 +59,56 @@
       text-decoration: none;
       font-size: 1.2rem;
       box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      transition: background 0.3s;
+      transition: all 0.3s ease-in-out;
+      display: inline-block;
+      animation: fadeInUp 2s ease forwards;
     }
 
     .btn:hover {
       background-color: #0080cc;
+      transform: scale(1.05);
     }
- 
- /* Mehr Abstand für Überschrift, Countdown, Buttons und Texte */
-h1 {
-  margin-top: 100; /* Abstand nach oben */
-  font-size: 2.5rem;
-}
 
-#countdown {
-  margin-top: 80px; /* Abstand zwischen Überschrift und Countdown */
-}
+    /* Überschrift mit Glow */
+    h1 {
+      margin-top: 100px;
+      font-size: 2.5rem;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
 
-.btn {
-  margin: 50px 0; /* Abstand zu anderen Elementen */
-}
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff0000, 0 0 20px #ff4d4d; }
+      to   { text-shadow: 0 0 20px #ff4d4d, 0 0 40px #ff1a1a; }
+    }
 
-h2, h3, p {
-  margin: 50px 0; /* Abstand zwischen Texten */
-}
+    /* Scroll Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(50px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
 
+    /* Trailer Box */
+    .trailer-box {
+      margin: 100px auto;
+      padding: 20px;
+      width: 80%;
+      max-width: 800px;
+      border: 3px solid #E50914;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #E50914, 0 0 40px #ff0000;
+      animation: pulse 2s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from { box-shadow: 0 0 15px #E50914, 0 0 25px #ff0000; }
+      to   { box-shadow: 0 0 30px #ff1a1a, 0 0 50px #ff4d4d; }
+    }
+
+    iframe {
+      width: 100%;
+      height: 450px;
+      border-radius: 10px;
+    }
   </style>
 </head>
 <body>
@@ -96,21 +121,27 @@ h2, h3, p {
   </div>
  
   <h2>Über uns</h2>
-    <p>Ricos Originals bringt dir einzigartige Geschichten und unvergessliche Welten.</p>
+  <p>Ricos Originals bringt dir einzigartige Geschichten und unvergessliche Welten.</p>
   
- &copy; Ricos Originals
-    <h3>Powered by Ricardo</h3>
+  &copy; Ricos Originals
+  <h3>Powered by Ricardo</h3>
   
-<a href="https://whatsapp.com/channel/0029Vb6y8cPAjPXICl6XBh2y" 
-   target="_blank" class="btn">WhatsApp-Kanal beitreten</a>
+  <a href="https://whatsapp.com/channel/0029Vb6y8cPAjPXICl6XBh2y" 
+     target="_blank" class="btn">WhatsApp-Kanal beitreten</a>
 
-<br><br><br><br> <!-- Abstand zwischen Buttons -->
+  <br><br><br><br>
 
-<a href="https://ricosoriginals.github.io/RicosOriginalsStream/" class="btn">🎬 Streamingdienst starten</a>
+  <a href="https://ricosoriginals.github.io/RicosOriginalsStream/" class="btn">🎬 Streamingdienst starten</a>
 
+  <h2>RCU</h2>
+  <p>&#127909; RCU: Erlebe das ganze RCU auf unserem Streamingdienst</p>
 
-<h2>RCU</h2>
-    <p>&#127909;RCU:Erlebe das ganze RCU auf Unserem Streamingdienst</p>
+  <!-- 🎬 Trailer Box -->
+  <div class="trailer-box">
+    <h2>Trailer 2</h2>
+    <iframe src="https://www.youtube.com/embed/Gd4xbwatY28" frameborder="0" allowfullscreen></iframe>
+  </div>
+
   <canvas id="confetti-canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;"></canvas>
 
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
@@ -170,22 +201,17 @@ h2, h3, p {
     }
 
     // Scroll Animation
-const animatedEls = document.querySelectorAll("section, h1, #countdown, .btn, h2, p, h3");
+    const animatedEls = document.querySelectorAll("section, h1, #countdown, .btn, h2, p, h3, .trailer-box");
 
-window.addEventListener("scroll", () => {
-  const triggerBottom = window.innerHeight * 0.8;
-  animatedEls.forEach(el => {
-    const top = el.getBoundingClientRect().top;
-    if (top < triggerBottom) {
-      el.classList.add("visible");
-    }
-  });
-});
-
-function openStreaming() {
-  window.open();
-}
-
+    window.addEventListener("scroll", () => {
+      const triggerBottom = window.innerHeight * 0.8;
+      animatedEls.forEach(el => {
+        const top = el.getBoundingClientRect().top;
+        if (top < triggerBottom) {
+          el.classList.add("visible");
+        }
+      });
+    });
   </script>
 
 </body>
